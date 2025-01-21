@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+### API Integration Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Проект предназначен для отправки уведомлений по электронной почте с использованием шаблонов, а также для генерации QR-кодов, указывающих на созданные объекты уведомлений.
 
-## Available Scripts
+## Функциональные возможности
+1. Создание уведомлений на основе шаблонов.
+2. Отправка уведомлений по email через EmailJS.
+3. Генерация QR-кода, указывающего на созданное уведомление.
 
-In the project directory, you can run:
+## Инструкции по запуску
+# Требования
+* Node.js версии 14.x или выше.
+* NPM (Node Package Manager).
+* 
+# Установка
 
-### `npm start`
+1. Клонируйте репозиторий
+`git clone https://github.com/<ваш-репозиторий>/api-integration-platform.git`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. Перейдите в директорию проекта
+`cd api-integration-platform`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+4. Запустите приложение
+`npm start`
 
-### `npm test`
+5. Приожение будет доступно по адресу `http://localhost:3000`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Инструкции по проверке бизнес-логики
 
-### `npm run build`
+# Шаблоны уведомлений
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Приложение поддерживает два шаблона:
+1. Приветствие
+`Привет, <b>%UserName%</b>, твой заказ №%OrderNumber% готов!`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#Параметры:
+* UserName: Имя пользователя.
+* OrderNumber: Номер заказа.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Напоминание
+`Здравствуйте, %UserName%! Напоминаем, что событие %EventName% начнётся %EventDate%.`
 
-### `npm run eject`
+# Параметры:
+* UserName: Имя пользователя.
+* EventName: Название события.
+* EventDate: Дата события.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Тестовые сценарии
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Шаблон "Приветствие"
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Введите email получателя: test@example.com.
+* Выберите шаблон "Приветствие".
+* Укажите параметры:
+  * :UserName:: Иван.
+  * :OrderNumber:: 12345.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Ожидаемый результат:
+`Привет, <b>Иван</b>, твой заказ №12345 готов!`
 
-## Learn More
+2. Шаблон "Напоминание"
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Введите email получателя: `test@example.com`.
+* Выберите шаблон "Напоминание".
+* Укажите параметры:
+  * :UserName:: Елена.
+  * :EventName:: Встреча с клиентом.
+  * :EventDate:: 2025-01-21.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Ожидаемый резальтат:
+`Здравствуйте, <b>Елена</b>! Напоминаем, что событие <b>Встреча с клиентом</b> начнётся <b>2025-01-21</b>.`
 
-### Code Splitting
+# QR-код указывает на URL объекта уведомления.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+# Инструкции по проверке бизнес-логики
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Создайте уведомление, используя доступные шаблоны.
+2. Проверьте, что подстановка параметров в шаблон происходит корректно:
+  * Все введённые параметры отображаются в сообщении.
+  * Параметры выделены жирным шрифтом.
+3. Убедитесь, что уведомление успешно отправлено на email.
+4. Убедитесь, что QR-код генерируется корректно и ссылается на URL объекта уведомления.
+5. Проверьте, что ошибки корректно обрабатываются:
+  * Отсутствие email или параметров вызывает сообщение об ошибке.
+  * Ошибки API не нарушают работу приложения.
 
-### Making a Progressive Web App
+## Пример проверки
+`Отправляемый на API объект: { message: "...", recipientEmail: "test@example.com", ... }
+Ссылка на уведомление: https://cvb-production.up.railway.app/api/reminder/1
+Сгенерированный QR-код URL: data:image/png;base64,...
+Уведомление успешно отправлено!
+QR-код успешно сгенерирован!
+`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Дальнейшее улучшение
+* Добавление функциональности для управления шаблонами (создание, редактирование, удаление).
+* Локализация для различных языков.
+* Поддержка различных типов уведомлений (SMS, Push).
