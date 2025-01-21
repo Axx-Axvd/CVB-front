@@ -15,7 +15,7 @@
 ### Установка
 
 1. Клонируйте репозиторий
-```git clone https://github.com/<ваш-репозиторий>/api-integration-platform.git```
+```git clone [https://github.com/<ваш-репозиторий>/api-integration-platform.git](https://github.com/Axx-Axvd/CVB-front)```
 
 3. Перейдите в директорию проекта
 ```cd api-integration-platform```
